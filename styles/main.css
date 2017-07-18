@@ -3,12 +3,6 @@ body {
   font-family:ariel;
 }
 
-p {
-  background-color:#555;
-  color:green;
-  padding:10px 10px 10px 50px;
-}
-
 img {
   max-width:100%;
   max-height:100%;
@@ -18,7 +12,8 @@ img {
   width: 50%;
   height: auto;
   margin-left: 25%;
-  background-color: green;
+  background-color: #777;
+  text-align: center;
 }
 
 .lunch_title {
@@ -28,7 +23,6 @@ img {
 
 .lunch_subtitle {
   color:#222;
-  text-align: center;
   background-color: inherit !important;
 }
 
@@ -36,7 +30,6 @@ img {
   width: 100vw;
   height: auto;
   overflow:hidden;
-  background-color: red;
   margin-left: -7px;
 }
 
@@ -44,4 +37,55 @@ img {
   float:left;
   width:20vw;
   height:auto;
+}
+
+.lunch_display {
+  width: 100vw;
+  height: auto;
+  color: #222;
+  margin-left: -7px;
+  background-color: green;
+}
+
+.lunch_section_2 {
+  clear: both;
+  text-align: center;
+}
+
+.lunch_picture {
+  width:25vw;
+  display: inline-block;
+  height:auto;
+  margin: 0 auto;
+}
+
+.avg_rating {
+  float: left;
+  width:25vw;
+  height: auto;
+  background-color: blue;
+}
+
+.avg_rating p {
+  color: red;
+  font-size: 30px;
+}
+
+.recent_ratings {
+  float: right !important;
+  width:25vw;
+  height: auto;
+  background-color: blue;
+}
+
+.recent_ratings p {
+  color: red;
+  font-size: 30px;
+}
+
+.recent_ratings li {
+  color: #222;
+  font-size: 20;
+  text-align: left !important;
+  margin-left: 33%;
 }

@@ -1,0 +1,8 @@
+
+var filled = false;
+var id = -1;
+
+function Star(id)
+{
+  this.id = id;
+}

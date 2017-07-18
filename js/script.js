@@ -1,7 +1,12 @@
 
 var stars_filled = [false, false, false, false, false];
+var todays_meal = "pizza";
 
 $(document).ready(function() {
+
+    $(".lunch_display .meal_name").html(todays_meal);
+    getImage(todays_meal);
+
     $('#star_0').mouseenter(
       function() {
         enterStar('#star_0_img', 0);
@@ -37,6 +42,12 @@ $(document).ready(function() {
         reset();
       },
     );
+
+    $('#star_parent').mousedown(
+      function() {
+        submitRating();
+      },
+    );
 });
 
 function enterStar(id, index)
@@ -50,7 +61,7 @@ function enterStar(id, index)
     var s = id.substring(id.indexOf('_') + 1, id.lastIndexOf('_'));
     var d = parseInt(s) + 1;
     var i = "#star_" + d + "_img";
-    console.log(i);
+  
     toggleStar(i, index + 1);
   }
 
@@ -99,4 +110,35 @@ function reset()
   toggleStar("#star_2_img", 2, false);
   toggleStar("#star_3_img", 3, false);
   toggleStar("#star_4_img", 4, false);
+}
+
+function getImage(word)
+{
+
+    var keyword = word;
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+        {
+            tags: keyword,
+            tagmode: "any",
+            format: "json"
+        },
+        function(data) {
+              var rnd = Math.floor(Math.random() * 10);
+
+            var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+
+            //$('body').css('background-image', "url('" + image_src + "')");
+            $('#lunch_display_img').attr("src", image_src);
+
+        });
+}
+
+function submitRating()
+{
+  var i = 0;
+  while (stars_filled[i] == true)
+  {
+    i++;
+  }
+  console.log(i);
 }
