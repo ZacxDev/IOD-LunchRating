@@ -1,11 +1,19 @@
-
+var locked = false;
 var stars_filled = [false, false, false, false, false];
+var avg_rating = 0;
+var recent_ratings = [];
 var todays_meal = "pizza";
+var ip = "";
 
 $(document).ready(function() {
 
     $(".lunch_display .meal_name").html(todays_meal);
     getImage(todays_meal);
+    avg_rating = fetchAvgRating();
+
+    $.get("http://ipinfo.io", function(response) {
+      ip = response.ip.replace(/\./g, '');;
+    }, "jsonp");
 
     $('#star_0').mouseenter(
       function() {
@@ -52,6 +60,8 @@ $(document).ready(function() {
 
 function enterStar(id, index)
 {
+  if (locked)
+    return;
   //if star is not filled, toggle it on
   if (stars_filled[index] == false)
     toggleStar(id, index);
@@ -61,7 +71,7 @@ function enterStar(id, index)
     var s = id.substring(id.indexOf('_') + 1, id.lastIndexOf('_'));
     var d = parseInt(s) + 1;
     var i = "#star_" + d + "_img";
-  
+
     toggleStar(i, index + 1);
   }
 
@@ -105,6 +115,8 @@ function toggleStar(id, index, force)
 
 function reset()
 {
+  if (locked)
+    return;
   toggleStar("#star_0_img", 0, false);
   toggleStar("#star_1_img", 1, false);
   toggleStar("#star_2_img", 2, false);
@@ -114,7 +126,6 @@ function reset()
 
 function getImage(word)
 {
-
     var keyword = word;
         $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
         {
@@ -135,10 +146,32 @@ function getImage(word)
 
 function submitRating()
 {
+
+  if (locked)
+  {
+    locked = !locked;
+    return;
+  }
   var i = 0;
   while (stars_filled[i] == true)
   {
     i++;
   }
   console.log(i);
+
+
+  locked = true;
+  recent_ratings.push(i);
+
+  $('#ratings_list_loading').remove();
+
+  $('#' + ip).remove();
+  $('#ratings_list').append('<li id="' + ip + '">' + i + '</li>');
+  //push to DB
+
+}
+
+function fetchAvgRating()
+{
+  //pull from DB
 }
