@@ -1,4 +1,6 @@
 var locked = false;
+var loggedin = false;
+var login_form_open = false;
 var stars_filled = [false, false, false, false, false];
 var avg_rating = 0;
 var recent_ratings = [];
@@ -32,6 +34,12 @@ $(document).ready(function() {
       for(let i = 4; i >=0; i--){
         $('#star_' + i + '_img').attr("src", "resources/star_empty.png");
       }
+    }
+  );
+
+  $('.login_button').mousedown(
+    function() {
+        showLoginForm();
     }
   );
 
@@ -176,5 +184,10 @@ function submitRating()
   $('#' + ip).remove();
   $('#ratings_list').append('<li id="' + ip + '">' + i + '</li>');
   //push to DB
+}
 
+function showLoginForm()
+{
+  $('.login_frame').css('display', 'block');
+  login_form_open = true;
 }

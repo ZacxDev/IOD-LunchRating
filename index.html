@@ -15,11 +15,22 @@
 
 <body>
   <!-- avg_rating, item_name, username, avg_rating, rating_value, item_img -->
+
+<iframe src="/bootstrap_form/form.html" height="300" width="300" class="login_frame"></iframe>
+
   <div class="z_top">
+  <div class="top_section">
   <div class="lunch_title_div">
     <h1 class="lunch_title">How was Lunch Today?</h1>
     <p class="lunch_subtitle"><em><strong>Give it a star rating.</strong></em></p>
   </div>
+
+  <div class="login_button">
+    <div>
+      <p>Login/Register</p>
+    </div>
+  </div>
+</div>
 
 <!-- star display --->
 
@@ -106,7 +117,8 @@
 
   var canvasDiv = document.getElementById('particle-canvas');
   var options = {
-    particleColor: '#11ce00',
+    //particleColor: '#11ce00',
+    particleColor: '#ff0000',
     //background: 'https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/demo-bg.jpg',
     interactive: false,
     speed: 'medium',
