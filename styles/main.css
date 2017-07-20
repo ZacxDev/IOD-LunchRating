@@ -72,6 +72,9 @@ img {
 
 .lunch_picture {
   width:25vw;
+  height: auto;
+  max-width: 30vw;
+  max-height: 30vh;
   display: inline-block;
   height:auto;
   margin: 0 auto;
@@ -80,7 +83,7 @@ img {
 .avg_rating {
   float: left;
   width:25vw;
-  height: auto;
+  height: 30vh;
   background-color: rgba(229,229,229, 0.4)
 }
 
@@ -92,7 +95,7 @@ img {
 .recent_ratings {
   float: right !important;
   width:25vw;
-  height: auto;
+  height: 30vh;
   background-color: rgba(229,229,229, 0.4)
 }
 
