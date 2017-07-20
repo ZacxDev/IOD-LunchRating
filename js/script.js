@@ -6,127 +6,131 @@ var todays_meal = "pizza";
 var ip = "";
 
 $(document).ready(function() {
+  let domain= "http://ratelunch.today"
 
-    $(".lunch_display .meal_name").html(todays_meal);
-    getImage(todays_meal);
-    avg_rating = fetchAvgRating();
+  let today = new Date();
+  let date = today.getDate();
+  let month = today.getMonth()+1;
+  let year = today.getFullYear();
 
-    $.get("http://ipinfo.io", function(response) {
+  getImage("pizza");
+  $('#item_name').text("pizza");
+
+  $.get("http://ipinfo.io", function(response) {
       ip = response.ip.replace(/\./g, '');;
     }, "jsonp");
 
-    $('#star_0').mouseenter(
-      function() {
-        enterStar('#star_0_img', 0);
-       },
-    );
+  lunchQueryAjax(domain, year, month, date);
 
-    $('#star_1').mouseenter(
-      function() {
-        enterStar('#star_1_img', 1);
-       },
-    );
+  $('#star_parent').mouseleave(
+    function(){
+      if (locked)
+        return;
+      for(let i = 4; i >=0; i--){
+        $('#star_' + i + '_img').attr("src", "resources/star_empty.png");
+      }
+    }
+  );
 
-    $('#star_2').mouseenter(
-      function() {
-        enterStar('#star_2_img', 2);
-       },
-    );
+  $('.star_image').each(function(index){
+    $(this).mouseenter(index, function(e){
+      if (locked)
+        return;
 
-    $('#star_3').mouseenter(
-      function() {
-        enterStar('#star_3_img', 3);
-    },
-    );
+      for(let i = 4; i >=0; i--){
+        $('#star_' + i + '_img').attr("src", "resources/star_empty.png");
+        stars_filled[i] = false;
+      }
+      for(let i = 0; i <=index; i++){
+        $('#star_' + i + '_img').attr("src", "resources/star_filled.png");
+        stars_filled[i] = true;
+      }
+    });
 
-    $('#star_4').mouseenter(
-      function() {
-        enterStar('#star_4_img', 4);
-       },
-    );
+    $(this).mousedown(index, function(){
+      if (locked)
+      {
+        locked = !locked;
+        return;
+      }
 
-    $('#star_parent').mouseleave(
-      function() {
-        reset();
-      },
-    );
-
-    $('#star_parent').mousedown(
-      function() {
-        submitRating();
-      },
-    );
+      submitRating();
+      // to do make it equal to real data
+      let meal_id = 1;
+      let item_id = 1;
+      let user_id = 1;
+      // to do make it equal to real data
+      let rating_value = index + 1;
+      console.log(rating_value);
+      lunchRateAjax(domain, meal_id, item_id, user_id, rating_value);
+    });
+  });
 });
 
-function enterStar(id, index)
+function lunchRateAjax(domain, meal_id, item_id, user_id, rating_value)
 {
-  if (locked)
-    return;
-  //if star is not filled, toggle it on
-  if (stars_filled[index] == false)
-    toggleStar(id, index);
-  //if next star is filled, toggle it off
-  if (stars_filled[index + 1] == true && index < 4)
-  {
-    var s = id.substring(id.indexOf('_') + 1, id.lastIndexOf('_'));
-    var d = parseInt(s) + 1;
-    var i = "#star_" + d + "_img";
-
-    toggleStar(i, index + 1);
+  let _data = {
+    "meal_id": meal_id,
+    "item_id": item_id,
+    "user_id": user_id,
+    "rating_value": rating_value
   }
 
-  //fill all previous stars
-  var s = "";
-  for (var i=index; i > -1; i--)
-  {
-    s = "#star_" + i + "_img";
-    toggleStar(s, i, true);
-  }
+  let data = JSON.stringify(_data);
+
+  let url = domain + "/api/v1/ratings";
+
+  $.ajax({
+    async: true,
+    crossDomain: true,
+    url: url,
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer jakdsflkjfldsjflajfweihbjkbfw,bkb2j1khlkfwelkfjlkwe",
+      "Content-Type": "application/json",
+    },
+    data: data,
+    success: function(data) {
+      console.log(data);
+      updatePage(data);
+    },
+    error: function(xhr, text, e) {
+      console.log(xhr.responseText+ ' \\ ' + e);
+    }
+  });
 }
 
-//force true = fill it, false = empty it, null = toggle
-function toggleStar(id, index, force)
+function lunchQueryAjax(domain, year, month, date)
 {
+  let url = domain + '/api/v1/meals/' + year + '/' + month + '/' + date;
 
-  if (force == false)
-  {
-    $(id).attr("src","resources/star_empty.png");
-    stars_filled[index] = false;
-    return;
-  } else if (force == true)
-  {
-    $(id).attr("src","resources/star_filled.png");
-    stars_filled[index] = true;
-    return;
-  }
-
-  var b = stars_filled[index];
-
-  if (b)
-  {
-    $(id).attr("src","resources/star_empty.png");
-  } else
-  {
-    $(id).attr("src","resources/star_filled.png");
-  }
-  stars_filled[index] = !b;
-  //console.log(id + " star is " + stars_filled[index]);
+  $.ajax(
+    {
+      async: true,
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        updatePage(data);
+      },
+      error: function(xhr, text, e) {
+        console.log(xhr.responseText+ ' \\ ' + e);
+      }
+    }
+  );
 }
 
-function reset()
+function updatePage(data)
 {
-  if (locked)
-    return;
-  toggleStar("#star_0_img", 0, false);
-  toggleStar("#star_1_img", 1, false);
-  toggleStar("#star_2_img", 2, false);
-  toggleStar("#star_3_img", 3, false);
-  toggleStar("#star_4_img", 4, false);
+
 }
+
 
 function getImage(word)
 {
-    var keyword = word;
+    var keyword = word + " food";
         $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
         {
             tags: keyword,
@@ -134,7 +138,7 @@ function getImage(word)
             format: "json"
         },
         function(data) {
-              var rnd = Math.floor(Math.random() * 10);
+              var rnd = Math.floor(Math.random() * 5);
 
             var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
 
@@ -157,7 +161,8 @@ function submitRating()
   {
     i++;
   }
-  console.log(i);
+  //log rating
+  //console.log(i);
 
 
   locked = true;
@@ -165,13 +170,9 @@ function submitRating()
 
   $('#ratings_list_loading').remove();
 
-  $('#' + ip).remove();
+if ($('#' + ip).length > 0)
+    $('#' + ip).remove();
   $('#ratings_list').append('<li id="' + ip + '">' + i + '</li>');
   //push to DB
 
-}
-
-function fetchAvgRating()
-{
-  //pull from DB
 }

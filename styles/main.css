@@ -1,6 +1,10 @@
 body {
-  background:#999;
   font-family:ariel;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 img {
@@ -8,22 +12,27 @@ img {
   max-height:100%;
 }
 
+.z_top {
+  z-index: 10;
+  position:absolute;
+}
+
 .lunch_title_div {
   width: 50%;
   height: auto;
   margin-left: 25%;
-  background-color: #777;
+  background-color: rgba(229,229,229, 0.5);
   text-align: center;
 }
 
 .lunch_title {
-  color:#333;
+  color:#222;
   text-align: center;
 }
 
 .lunch_subtitle {
-  color:#222;
-  background-color: inherit !important;
+  color:#111;
+  font-size: 20px;
 }
 
 .star_rating {
@@ -32,6 +41,15 @@ img {
   overflow:hidden;
   margin-left: -7px;
 }
+
+.star_pane {
+    width: 100vw;
+    height: auto;
+    overflow:hidden;
+    margin-left: -7px;
+    background-color: rgba(229,229,229, 0.5)
+}
+
 
 .star_image {
   float:left;
@@ -44,7 +62,7 @@ img {
   height: auto;
   color: #222;
   margin-left: -7px;
-  background-color: green;
+  background-color: rgba(229,229,229, 0.5)
 }
 
 .lunch_section_2 {
@@ -63,7 +81,7 @@ img {
   float: left;
   width:25vw;
   height: auto;
-  background-color: blue;
+  background-color: rgba(229,229,229, 0.4)
 }
 
 .avg_rating p {
@@ -75,7 +93,7 @@ img {
   float: right !important;
   width:25vw;
   height: auto;
-  background-color: blue;
+  background-color: rgba(229,229,229, 0.4)
 }
 
 .recent_ratings p {
@@ -84,8 +102,8 @@ img {
 }
 
 .recent_ratings li {
-  color: #222;
-  font-size: 20;
+  color: #111;
   text-align: left !important;
   margin-left: 33%;
+  font-size: 25px;
 }

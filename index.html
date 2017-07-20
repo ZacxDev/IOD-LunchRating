@@ -1,21 +1,24 @@
 <!doctype html>
-
 <html>
 <head>
   <title>Lunch Rating</title>
   <link href="styles/main.css" rel="stylesheet" type="text/css" />
+  <script src="js/particle-canvas.js"></script>
+
 </head>
 
 <body>
-
+  <!-- avg_rating, item_name, username, avg_rating, rating_value, item_img -->
+  <div class="z_top">
   <div class="lunch_title_div">
     <h1 class="lunch_title">How was Lunch Today?</h1>
-    <p class="lunch_subtitle"><em>Give it a star rating.</em></p>
+    <p class="lunch_subtitle"><em><strong>Give it a star rating.</strong></em></p>
   </div>
 
 <!-- star display --->
-<div class="star_rating" id="star_parent">
 
+<div class="star_rating" id="star_parent">
+<div class="star_pane">
   <div class="star_image" id="star_0">
     <img id="star_0_img" src="resources/star_empty.png" />
   </div>
@@ -35,33 +38,71 @@
   <div class="star_image" id="star_4">
     <img id="star_4_img" src="resources/star_empty.png" />
   </div>
+  </div>
 </div>
 
 <div class="lunch_section_2">
   <div class="lunch_display">
-    <h2>Today's lunch was <span class="meal_name">foods</span></h2>
+    <!-- to do: get item_name -->
+    <h2>Today's lunch was <span id="item_name"></span></h2>
   </div>
 
   <div class="avg_rating">
     <p>Average Rating</p>
-    <h>Loading..</h>
+    <h3><span id="avg_rating"></span></3>
   </div>
 
   <div class="recent_ratings">
     <p>Recent Ratings</p>
+    <!-- to do: fetch username, rating_value and insert li element-->
     <ul id="ratings_list">
-      <li id="ratings_list_loading">No Recent Ratings!</li>
+      <!-- <li class="single_rating">{username} Rate Today's lunch No {rating_value}</li> -->
     </ul>
   </div>
 
-<!--Center must be last-->
+  <!--Center must be last-->
   <div class="lunch_picture">
+    <!-- to do fetch item_img data-->
     <img id="lunch_display_img" src="" alt="Fetching..." />
   </div>
 
 </div>
+</div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="js/script.js"></script>
 
+  <div id="particle-canvas"></div>
 </body>
+
+<style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #particle-canvas {
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+</style>
+
+<script>
+
+  // Initialisation
+
+  var canvasDiv = document.getElementById('particle-canvas');
+  var options = {
+    particleColor: '#11ce00',
+    //background: 'https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/demo-bg.jpg',
+    interactive: false,
+    speed: 'medium',
+    density: 'high'
+  };
+  var particleCanvas = new ParticleNetwork(canvasDiv, options);
+</script>
+
 </html>
