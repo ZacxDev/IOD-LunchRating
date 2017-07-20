@@ -6,6 +6,13 @@ var todays_meal = "pizza";
 var ip = "";
 
 $(document).ready(function() {
+
+  $.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+    let json = JSON.stringify(data, null, 2);
+    let obj = JSON.parse(json);
+    ip = obj.ip.replace(/\./g, '');
+});
+
   let domain= "http://ratelunch.today"
 
   let today = new Date();
@@ -15,10 +22,6 @@ $(document).ready(function() {
 
   getImage("pizza");
   $('#item_name').text("pizza");
-
-  $.get("http://ipinfo.io", function(response) {
-      ip = response.ip.replace(/\./g, '');;
-    }, "jsonp");
 
   lunchQueryAjax(domain, year, month, date);
 
@@ -170,8 +173,7 @@ function submitRating()
 
   $('#ratings_list_loading').remove();
 
-if ($('#' + ip).length > 0)
-    $('#' + ip).remove();
+  $('#' + ip).remove();
   $('#ratings_list').append('<li id="' + ip + '">' + i + '</li>');
   //push to DB
 

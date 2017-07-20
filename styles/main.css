@@ -8,8 +8,7 @@ body {
 }
 
 img {
-  max-width:100%;
-  max-height:100%;
+
 }
 
 .z_top {
@@ -39,11 +38,10 @@ img {
   width: 100vw;
   height: auto;
   overflow:hidden;
-  margin-left: -7px;
 }
 
 .star_pane {
-    width: 100vw;
+    width: 110vw;
     height: auto;
     overflow:hidden;
     margin-left: -7px;
@@ -55,6 +53,27 @@ img {
   float:left;
   width:20vw;
   height:auto;
+  margin-right: -20px;
+  margin-left: 20px;
+}
+
+.star_image img {
+  border-radius: 0%;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+          transition: transform .2s ease-in-out;
+}
+
+.star_image img:hover {
+  -webkit-transform: rotate(15deg);
+          transform: rotate(15deg);
+}
+
+.star_image_click {
+  border-radius: 0%;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+          transition: transform .2s ease-in-out;
+          -webkit-transform: rotate(15deg);
+                  transform: rotate(15deg);
 }
 
 .lunch_display {
@@ -72,12 +91,16 @@ img {
 
 .lunch_picture {
   width:25vw;
-  height: auto;
   max-width: 30vw;
   max-height: 30vh;
   display: inline-block;
   height:auto;
   margin: 0 auto;
+}
+
+.lunch_picture img {
+  width: 25vw;
+  height: 30vh;
 }
 
 .avg_rating {
@@ -109,4 +132,21 @@ img {
   text-align: left !important;
   margin-left: 33%;
   font-size: 25px;
+}
+
+.credit_bar {
+  text-align: center;
+  width: 100vw;
+  height: auto;
+  margin-top: -15px;
+}
+
+.credit_bar p {
+  font-size: 15px;
+  color: white;
+}
+
+.credit_bar a {
+  color: red;
+  text-decoration: none;
 }
