@@ -22,8 +22,8 @@ $(document).ready(function() {
   let month = today.getMonth()+1;
   let year = today.getFullYear();
 
-  getImage("pizza");
-  $('#item_name').text("pizza");
+  //getImage("pizza");
+  //$('#item_name').text("pizza");
 
   lunchQueryAjax(domain, year, month, date);
 
@@ -62,6 +62,35 @@ $(document).ready(function() {
     hideLoginForm();
   });
 
+  $('.lunch_title').mouseenter(function() {
+    $('.lunch_title').text("Follow our Twitters pls");
+  });
+
+  $('.lunch_title').mouseleave(function() {
+    $('.lunch_title').text("How was Lunch Today?");
+  });
+
+  // $('.lunch_display_title').mouseenter(function() {
+  //   $('.lunch_display_title').text("Why haven't you followed us yet? :(");
+  // });
+  //
+  // $('.lunch_display_title').mouseleave(function() {
+  //   $('.lunch_display_title').text("Today's lunch was " + todays_meal);
+  // });
+
+  $('.avi').mouseenter(function() {
+    console.log("dddd");
+    $('.zach_avi img').attr("src", "resources/zach.png");
+    $('.fred_avi img').attr("src", "resources/fred.png");
+    $('.lunch_title_div').css("margin", "");
+  });
+
+  $('.avi').mouseleave(function() {
+    $('.fred_avi img').attr("src", "resources/empty.png");
+    $('.zach_avi img').attr("src", "resources/empty.png");
+    $('.lunch_title_div').css("margin", "0 auto");
+  });
+
   $('.star_image').each(function(index){
     $(this).mouseenter(index, function(e){
       if (locked)
@@ -95,10 +124,11 @@ $(document).ready(function() {
       let user_id = 1;
       // to do make it equal to real data
       let rating_value = index + 1;
-      console.log(rating_value);
+      //console.log(rating_value);
       lunchRateAjax(domain, meal_id, item_id, user_id, rating_value);
     });
   });
+  startTick();
 });
 
 function lunchRateAjax(domain, meal_id, item_id, user_id, rating_value)
@@ -162,25 +192,7 @@ function updatePage(data)
 }
 
 
-function getImage(word)
-{
-    var keyword = word + " food";
-        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-        {
-            tags: keyword,
-            tagmode: "any",
-            format: "json"
-        },
-        function(data) {
-              var rnd = Math.floor(Math.random() * 5);
 
-            var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
-
-            //$('body').css('background-image', "url('" + image_src + "')");
-            $('#lunch_display_img').attr("src", image_src);
-
-        });
-}
 
 function submitRating()
 {
@@ -218,8 +230,60 @@ function showLoginForm()
 
 function hideLoginForm()
 {
-  console.log("call");
+  //console.log("call");
   $('.login_frame').css('display', 'none');
   $('.button_close').css('display', 'none');
   login_form_open = false;
 }
+
+function startTick()
+{
+  setTimeout(function () {
+    //  i++;
+    //  if (i < 10) {
+    console.log("cccc");
+    let c = getRandomColor(rgb2hex($('.zach').css('color')), 5);
+    //let f = getRandomColor(rgb2hex($('.fred').css('color')), 10);
+
+    $('.zach').css('color', c);
+    $('.fred').css('color', c);
+    startTick();
+    //  }
+   }, 100);
+}
+
+var flip = 1, i = 0, pause = 0;
+function getRandomColor(color, step){
+  if (pause > 0)
+  { pause --; return color; }
+
+    var colorToInt = parseInt(color.substr(1), 16),                     // Convert HEX color to integer
+        nstep = parseInt(step) * flip;
+                                  // Convert step to integer
+    if(!isNaN(colorToInt) && !isNaN(nstep)){                            // Make sure that color has been converted to integer
+        colorToInt += nstep;                                            // Increment integer with step
+        var ncolor = colorToInt.toString(16);                           // Convert back integer to HEX
+        ncolor = '#' + (new Array(7-ncolor.length).join(0)) + ncolor;   // Left pad "0" to make HEX look like a color
+        if(/^#[0-9a-f]{6}$/i.test(ncolor)){
+          i++;
+          if (i >= 25)
+            { flip *= -1; i = 0; pause = 10;}
+
+          return ncolor;
+        }
+    }
+    return color;
+};
+
+var hexDigits = new Array
+        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }

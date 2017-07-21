@@ -23,15 +23,25 @@
 
   <div class="z_top">
   <div class="top_section">
-  <div class="lunch_title_div">
-    <h1 class="lunch_title">How was Lunch Today?</h1>
-    <p class="lunch_subtitle"><em><strong>Give it a star rating.</strong></em></p>
+
+<div class="avi">
+  <div class="fred_avi">
+    <img src="resources/empty.png" />
   </div>
+  <div class="zach_avi">
+    <img src="resources/empty.png" />
+  </div>
+</div>
 
   <div class="login_button">
     <div>
       <p>Login/Register</p>
     </div>
+  </div>
+
+  <div class="lunch_title_div">
+    <h1 class="lunch_title">How was Lunch Today?</h1>
+    <p class="lunch_subtitle"><em><strong>Give it a star rating.</strong></em></p>
   </div>
 </div>
 
@@ -64,12 +74,12 @@
 <div class="lunch_section_2">
   <div class="lunch_display">
     <!-- to do: get item_name -->
-    <h2>Today's lunch was <span id="item_name"></span></h2>
+    <h2 class="lunch_display_title">Today's lunch was <span id="item_name"></span></h2>
   </div>
 
   <div class="avg_rating">
     <p>Average Rating</p>
-    <h3><span id="avg_rating"></span></3>
+    <h3><span id="avg_rating"></span></h3>
   </div>
 
   <div class="recent_ratings">
@@ -87,13 +97,15 @@
   </div>
 
 <div class="credit_bar">
-  <p>Made by <a href="https://twitter.com/DevZacx">Zach Lowden</a> and <a href="https://twitter.com/Fred__Hong">Fred Hong</a>.</p>
+  <p>Made by <a class="zach" href="https://twitter.com/DevZacx">Zach Lowden</a> and <a class="fred" href="https://twitter.com/Fred__Hong">Fred Hong</a>.</p>
 </div>
 </div>
 </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="bootstrap_form/js/script.js"></script>
+  <script src="js/cookie.js"></script>
+  <script src="js/script_fred.js"></script>
 
   <div id="particle-canvas"></div>
 </body>

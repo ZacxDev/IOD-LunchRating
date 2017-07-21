@@ -24,6 +24,37 @@ img {
   text-align: center;
 }
 
+.avi {
+  width: 300px;
+  height: 100px;
+  margin-left: 2vw;
+  float: left;
+  text-align: center;
+}
+
+.fred_avi {
+  width: 10vw;
+  height: auto;
+  float: left;
+  margin: 0 auto;
+}
+
+.zach_avi {
+  width: 10vw;
+  height: auto;
+  float: right;
+  margin: 0 auto;
+}
+
+.zach_avi img {
+  width: 7vw !important;
+}
+
+.avi img {
+  width: 10vw;
+  height: auto;
+}
+
 .lunch_title_div {
   width: 50%;
   height: auto;
@@ -32,6 +63,7 @@ img {
   text-align: center;
   border-radius: 20px;
   display: inline-block;
+  margin: 0 auto;
 }
 
 .lunch_title {
@@ -161,16 +193,22 @@ img {
 }
 
 .lunch_picture img {
-  width: 25vw;
-  height: 30vh;
+  width: 20vw;
+  height: 20vh;
   border-radius: 40px;
+  transition: all .2s ease-in-out;
+}
+
+.lunch_picture :hover {
+  transform: scale(1.05);
 }
 
 .avg_rating {
   float: left;
   width:25vw;
-  height: 30vh;
-  background-color: rgba(229,229,229, 0.4)
+  height: 25vh;
+  background-color: rgba(229,229,229, 0.4);
+  margin-bottom: 5vh;
 }
 
 .avg_rating p {
@@ -181,8 +219,9 @@ img {
 .recent_ratings {
   float: right !important;
   width:25vw;
-  height: 30vh;
-  background-color: rgba(229,229,229, 0.4)
+  height: 25vh;
+  background-color: rgba(229,229,229, 0.4);
+  margin-bottom: 5vh;
 }
 
 .recent_ratings p {
