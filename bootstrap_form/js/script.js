@@ -37,11 +37,30 @@ $(document).ready(function() {
     }
   );
 
-  $('.login_button').mousedown(
-    function() {
-        showLoginForm();
+  $('.z_top').mousedown(
+    function()
+    {
+      if (login_form_open)
+      {
+        hideLoginForm();
+        event.stopPropagation()
+      }
     }
   );
+
+  $('.login_button').mousedown(
+    function(event) {
+      if (!login_form_open)
+      {
+        showLoginForm();
+        event.stopPropagation()
+      }
+    }
+  );
+
+  $('.button_close').click(function(e) {
+    hideLoginForm();
+  });
 
   $('.star_image').each(function(index){
     $(this).mouseenter(index, function(e){
@@ -59,6 +78,10 @@ $(document).ready(function() {
     });
 
     $(this).mousedown(index, function(){
+      if (login_form_open)
+      {
+        return;
+      }
       if (locked)
       {
         locked = !locked;
@@ -189,5 +212,14 @@ function submitRating()
 function showLoginForm()
 {
   $('.login_frame').css('display', 'block');
+  $('.button_close').css('display', 'block');
   login_form_open = true;
+}
+
+function hideLoginForm()
+{
+  console.log("call");
+  $('.login_frame').css('display', 'none');
+  $('.button_close').css('display', 'none');
+  login_form_open = false;
 }

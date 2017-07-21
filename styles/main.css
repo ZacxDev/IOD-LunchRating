@@ -80,6 +80,20 @@ img {
   display: none;
 }
 
+.button_close {
+  z-index: 21;
+  position: absolute;
+  width: 3vw;
+  height: auto;
+  margin-top: 11vh;
+  margin-left: 77vw;
+  display: none;
+}
+.button_close img {
+  width: inherit;
+  height: inherit;
+}
+
 .star_rating {
   width: 100vw;
   height: auto;
